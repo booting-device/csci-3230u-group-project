@@ -44,7 +44,7 @@ We are sourcing our data from the Internet Archive's <a href="https://openlibrar
             <td>Backend Interfaces.</td>
         </tr>
          <tr>
-            <td>Kimmy</td>
+            <td>Kimberley Weir</td>
             <td>Front End Lead Programmer</td>
         </tr>
     </tbody>
