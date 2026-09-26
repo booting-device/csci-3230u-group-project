@@ -33,11 +33,11 @@ We are sourcing our data from the Internet Archive's <a href="https://openlibrar
     <tbody>
         <tr>
             <td>Cindy Lin</td>
-            <td>...</td>
+            <td>Front End Lead Desiginer</td>
         </tr>
         <tr>
             <td>Osezele</td>
-            <td>...</td>
+            <td>Software Quality Assurence</td>
         </tr>
         <tr>
             <td>Noah Hewitt</td>
@@ -45,7 +45,7 @@ We are sourcing our data from the Internet Archive's <a href="https://openlibrar
         </tr>
          <tr>
             <td>Kimmy</td>
-            <td>...</td>
+            <td>Front End Lead Programmer</td>
         </tr>
     </tbody>
 </table>
