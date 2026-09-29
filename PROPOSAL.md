@@ -33,10 +33,10 @@ Trimmed JSON sample
 ## Scaled feature plan  
 | Owner | Feature | End-to-end responsibility |
 |---|---|---|
-| name | **Book Search and Discovery** | Build the book search, filters, sorting, and results. Get data from the API. Test searching, filtering, and keyboard use. |
-| name | **Book Details** | Build a page showing the book’s description, genre, and publication details. Test that the page will still work if there are any missing information. |
-| name | **Personal Bookshelves** | Build a page where users can save, remove books, update their reading status, or create their customized bookshelf. |
-| name | **Ratings and Reviews** | Build a form where users can add, edit, or delete their ratings and reviews.  |
+| Noah      | **Book Search and Discovery** | Build the book search, filters, sorting, and results. Get data from the API. Test searching, filtering, and keyboard use. |
+| Cindy     | **Book Details** | Build a page showing the book’s description, genre, and publication details. Test that the page will still work if there are any missing information. |
+| Kimberley | **Personal Bookshelves** | Build a page where users can save, remove books, update their reading status, or create their customized bookshelf. |
+| Osezele   | **Ratings and Reviews** | Build a form where users can add, edit, or delete their ratings and reviews.  |
 
 
 
