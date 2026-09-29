@@ -1,7 +1,8 @@
 # Papercritic - Proposal 
 
 ## Topic 
-Papercritic is a book discovery platform for readers who want to connect with other readers and organize their books. Users can sort their books in different categories such as "want to read", "currently reading", and "completed". Similar apps are Goodreads and The Storygraph, Goodreads being the largest book tracking platform in the world. Papercritic will be focused on book discovery and personal reading organization, users will be able to search for books with similar tastes, see a synopsys or description, leave reviews and ratings. 
+Papercritic is a book discovery platform for readers who want to connect with other readers and organize their books. Users can sort their books in different categories such as "want to read", "currently reading", and "completed". Similar apps are Goodreads and The Storygraph, Goodreads being the largest book tracking platform in the world. Papercritic will be focused on book discovery and personal reading organization, users will be able to search for books with similar tastes, see a synopsys or description, leave reviews and ratings. Papercritic aims to make choosing your next read easier through a simple review system and interface. Users can rate specific aspects of a book such as characters, plot, and writing style. Our focus will be more on why a book may suit a reader rather than a books rating. 
+
 
 
 ## Data Source 
