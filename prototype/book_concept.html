@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f1">
+    <title>Papercritic | Find your next read</title>
+    <link rel="preconnect" href="https://covers.openlibrary.org">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="book-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+      <aside class="sidebar" >
+        <a class="logo" href="index.html" >
+            <img src="concept-logo.jpg" width="30" height="30">
+          <span>papercritic</span>
+        </a>
+
+        <nav class="side-nav">
+          <a class="nav-link" href="#top"> Discover</a>
+          <a class="nav-link" href="#top"> Favorites</a>
+        </nav>
+
+      </aside>
+
+      <main id="top" class="main-content">
+        <header class="topbar">
+          <form class="search" role="search" action="#top-picks">
+            <input type="search" placeholder="Search books, authors, or genres">
+          </form>
+        </header>
+
+        <div id="upper-section">
+        <section id="book-info">
+          <article class="book-card">
+              <span>
+                <img class="mini-book-cover" src="https://covers.openlibrary.org/b/isbn/9780140328721-L.jpg" alt="Cover of the Fantastic Mr. Fox!">
+              </span>
+              <div>
+                  <h2> The Fantastic Mr. Foxl  </h2>
+                  <p> By Ronald Dahl </p>
+                  <p>
+                    An urbane fox cannot resist returning to his farm raiding ways and then must help his community survive the farmers' retaliation.
+
+                  </p>
+              </div>
+          </article>
+          <div class="book-stats"> 
+            <div class="star-rating">
+              <input type="radio" id="star5" name="rating" value="5" />
+              <label for="star5" title="5 stars">★</label>
+
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label for="star4" title="4 stars">★</label>
+
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label for="star3" title="3 stars">★</label>
+
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label for="star2" title="2 stars">★</label>
+
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label for="star1" title="1 stars">★</label>
+            </div>
+            <div class="favourites">TODO</div>
+          </div>
+        </section>
+        <section id="more-like-this">
+          <h3>More Like this </h3>
+          <div class="more-like-this-grid">
+            <article class="mini-book-card">
+              <a class="cover-link" href="book_concept.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/978-1-4197-4185-2-L.jpg" alt="Cover of the Fantastic Mr. Foxl">
+              </a>
+              <div class="book-author">
+              </div>
+            </article>
+            <article class="mini-book-card">
+              <a class="cover-link" href="book_concept.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/978-1-4197-4185-2-L.jpg" alt="Cover of the Fantastic Mr. Foxl">
+              </a>
+              <div class="book-author">
+              </div>
+            </article>
+            <article class="mini-book-card">
+              <a class="cover-link" href="book_concept.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/978-1-4197-4185-2-L.jpg" alt="Cover of the Fantastic Mr. Foxl">
+              </a>
+            </article>
+            <article class="mini-book-card">
+              <a class="cover-link" href="book_concept.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/978-1-4197-4185-2-L.jpg" alt="Cover of the Fantastic Mr. Foxl">
+              </a>
+            </article>
+          </div>
+        </section>
+      
+      </div>
+      <section id="reviews">
+        <div class="reviews">
+
+          <article class="review">
+            <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="40" fill="white" stroke="black" />
+            </svg>
+            <div class="review-content">
+              <b>Mr. Smart</b>  
+              <div class="star-item">
+                <span>★</span>
+                <span class="star-activated">★</span>
+                <span class="star-activated">★</span>
+                <span class="star-activated">★</span>
+                <span class="star-activated">★</span>
+              </div>
+               <p> Lorem ipsum dolor sit amet, sadsadsadsadasodaiodwaoijdwajioadwijoiojadwijoadwijodwaoijaodijwijodawiojdawiojoijdwaiojdawiojdawiojadwiojiojdaiojawd  </p>
+            </div>
+          </article>
+                
+          <article class="review">
+            <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="40" fill="white" stroke="black" />
+            </svg>
+            <div class="review-content">
+              <b>Mr. Evil</b>  
+              <div class="star-item">
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+                <span class="star-evil">★</span>
+              </div>
+              <p> This book SUCKS!</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

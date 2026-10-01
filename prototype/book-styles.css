@@ -1,0 +1,173 @@
+
+:root {
+  color-scheme: light;
+  --ink: #232822;
+  --muted: #777c73;
+  --paper: #f7f7f2;
+  --line: #e5e7df;
+  --green: #315c4b;
+  --green-soft: #e6eee7;
+  --coral: #e78a6d;
+  --sun: #e9c766;
+  font-family: "Avenir Next", Avenir, "Trebuchet MS", sans-serif;
+  font-synthesis: none;
+}
+
+
+#upper-section 
+{
+    display: flex;
+    flex-direction: row;
+}
+
+#more-like-this {
+    h3 {
+        text-align: center;
+    }
+    margin-left: auto;;
+    width: 512;
+}
+
+.more-like-this-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+
+.mini-book-card {
+    margin-left: 30px;
+    margin-right: 30px;
+    display: flex;       /* Aligns items side-by-side */
+    flex-direction: column;
+    align-items:start;/* Centers the image and text vertically (optional) */
+    gap: 20px;          /* Adds space between the image and the text */
+    img {
+        max-width: 100px;
+    }
+}
+
+
+
+
+#book-info 
+{
+    max-width: 700px;   
+}
+
+.book-card {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    display: flex;       /* Aligns items side-by-side */
+    align-items:start;/* Centers the image and text vertically (optional) */
+    gap: 20px;          /* Adds space between the image and the text */
+    img {
+        max-width: 300px;
+    }
+}
+
+
+.book-stats
+{
+    /* color: red; */
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 300px;
+    display: inline-flex;
+    flex-direction: row; 
+}
+
+
+.star-rating {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.star-item {
+    color: #ccc; /* Default grey color for empty stars */
+    transition: color 0.2s ease-in-out;
+    padding: 0 0.1rem;
+}
+
+.star-activated {
+    color: #ffcc00;
+}
+
+.star-evil {
+    color: red;
+}
+
+
+/* Hide the actual radio buttons */
+.star-rating input {
+  display: none;
+}
+
+/* Base style for the star labels */
+.star-rating label {
+  color: #ccc; /* Default grey color for empty stars */
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  padding: 0 0.1rem;
+}
+
+/* Highlight stars on hover and keep them highlighted when checked */
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #f5b301; /* Gold/Yellow color for filled stars */
+}
+
+/* Optional: Maintain hover state on preceding stars when a star is hovered over, 
+   even if another star is already checked */
+.star-rating input:checked ~ label:hover,
+.star-rating input:checked ~ label:hover ~ label,
+.star-rating label:hover ~ input:checked ~ label {
+  color: #ffcc00;
+}
+
+.favourites {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+main {
+    height: 100vh;
+    flex-direction: column;
+    display: flex;
+    ;
+}
+
+.reviews {
+    display: flex;
+    margin-top: 20px;
+    height: 100%;
+    padding-left: 10px;
+    padding-top: 30px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.review {
+    /* background: #fbfbf8; */
+    border: 1px solid #e5e7df;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.review-content {
+    white-space:wrap;
+    overflow: hidden;
+    flex: 1;
+    overflow: wrap;
+    overflow-wrap: break-word; 
+
+    padding-top: 10px;
+    margin-left: 20px;
+    p {
+        margin-top: 5px;
+        
+    }
+}
