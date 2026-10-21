@@ -1,0 +1,64 @@
+.review {
+  display: flex;
+  gap: 18px;
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(251, 251, 248, 0.8);
+}
+
+.avatar {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #d5d9cf;
+  border-radius: 50%;
+  background: white;
+  color: var(--green);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+}
+
+.review-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.review-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.review-heading b {
+  font-size: 13px;
+}
+
+.review-rating {
+  display: flex;
+  gap: 2px;
+  color: #c9ccc4;
+  font-size: 15px;
+}
+
+.review-rating .star-activated {
+  color: #f5b301;
+}
+
+.review-content p {
+  margin: 8px 0 0;
+  color: #4c514a;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .review {
+    gap: 12px;
+    padding: 14px;
+  }
+}

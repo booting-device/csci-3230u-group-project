@@ -7,7 +7,7 @@ import style from "./book.module.css"
 export function BookCard({ title, cover, author }: { title: string; cover: string; author: string }) {
   return (
     <article className={style["book-card"]}>
-        <a className={style["cover-link"]} href="#book-info">
+        <a className={style["cover-link"]}>
         <img className={style["book-cover"]} src={cover} alt={"Cover of " + title}/>
         </a>
         <div className={style["book-info"]}>

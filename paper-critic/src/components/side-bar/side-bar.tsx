@@ -1,16 +1,17 @@
+import { navigateTo } from "../../navigation";
 import style from "./side-bar.module.css"
 
-export default function Sidebar() {
+export default function Sidebar({active = 0}) {
   return (
     <aside className={style.sidebar}>
-        <a className={style.logo} href="#top">
+        <a className={style.logo} onClick={()=>navigateTo("/")} href="#top">
             <img src="/concept-logo.jpg" width="30" height="30" alt="" />
           <span>papercritic</span>
         </a>
 
         <nav className={style["side-nav"]}>
-          <a className={`${style["nav-link"]} ${style["is-active"]}`} href="#top">Discover</a>
-          <a className={style["nav-link"]} href="#favorites">Favorites</a>
+          <a className={`${style["nav-link"]} ${active==1? style["is-active"] : ""}`} onClick={()=>navigateTo("/")} href="#top">Discover</a>
+          <a className={`${style["nav-link"]} ${active==2? style["is-active"] : ""}`} onClick={()=>navigateTo("/")} href="#favorites">Favorites</a>
         </nav>
       </aside>
   );
