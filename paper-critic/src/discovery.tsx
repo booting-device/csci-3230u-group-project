@@ -21,7 +21,7 @@ const topPicks = [
   },
 ];
 
-const favorites = [
+const popularReads = [
   {
     author: "Jeff Kinney",
     cover: "https://covers.openlibrary.org/b/isbn/9781419741852-L.jpg",
@@ -46,7 +46,7 @@ export default function Discovery() {
   return (
     <>
         <BookSection id="top-picks" title="Top picks" books={topPicks} />
-        <BookSection id="favorites" title="Our Favourites" books={favorites} />
+        <BookSection id="Popular-Reads" title="Popular Reads" books={popularReads} />
     </>
   );
 }

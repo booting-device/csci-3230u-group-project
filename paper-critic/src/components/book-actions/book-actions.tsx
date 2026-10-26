@@ -1,9 +1,12 @@
-import { Fragment, useState } from "react";
+import {Fragment} from "react";
 import styles from "./book-actions.module.css";
 
-export default function BookActions() {
-  const [isFavorite, setIsFavorite] = useState(false);
+interface BookActionsProps {
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
+}
 
+export default function BookActions({isFavorite, onToggleFavorite}: BookActionsProps) {
   return (
     <div className={styles["book-actions"]}>
       <fieldset className={styles["star-rating"]}>
@@ -29,7 +32,7 @@ export default function BookActions() {
         }`}
         type="button"
         aria-pressed={isFavorite}
-        onClick={() => setIsFavorite((favorite) => !favorite)}
+        onClick={onToggleFavorite}
       >
         <span aria-hidden="true">{isFavorite ? "♥" : "♡"}</span>
         {isFavorite ? "Saved to Favorites" : "Add to Favorites"}

@@ -30,6 +30,8 @@ const recommendations = [
 // 1. Define the props interface
 interface DetailProps {
   isbn: string;
+  favorites: string[];
+  toggleFavorite: (isbn: string) => void;
 }
 
 export default function Details(props: DetailProps) {
@@ -87,7 +89,7 @@ export default function Details(props: DetailProps) {
             </article>
 
             <div id="favorites">
-              <BookActions />
+              <BookActions isFavorite={props.favorites.includes(props.isbn)} onToggleFavorite={() => props.toggleFavorite(props.isbn)}/>
             </div>
           </section>
 
