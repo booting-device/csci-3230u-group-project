@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import BookSection from "./components/book-section/book-section";
-import type { Book } from "./concept/book";
+import { Book } from "./concept/book";
+
+function parseBooks(value: unknown): Book[] {
+  if (!Array.isArray(value)) {
+    throw new TypeError("Book API response must be an array.");
+  }
+
+  return value.map((book) => Book.fromJSON(book));
+}
 
 export default function Discovery() {
   const [topPicks, setTopPicks] = useState<Book[]>([]);
@@ -22,16 +30,15 @@ export default function Discovery() {
           throw new Error("Unable to load books from the server.");
         }
 
-        const [recommended, handpicked] = await Promise.all([
-          recommendedResponse.json() as Promise<Book[]>,
-          handpickedResponse.json() as Promise<Book[]>,
+        const [recommendedData, handpickedData]: [unknown, unknown] = await Promise.all([
+          recommendedResponse.json(),
+          handpickedResponse.json(),
         ]);
-        setTopPicks(recommended);
-        setFavorites(handpicked);
+
+        setTopPicks(parseBooks(recommendedData));
+        setFavorites(parseBooks(handpickedData));
       } catch (loadError) {
-        if (loadError instanceof Error && loadError.name === "AbortError") {
-          return;
-        }
+        if (controller.signal.aborted) return;
         setError(loadError instanceof Error ? loadError.message : "Unable to load books.");
       } finally {
         if (!controller.signal.aborted) {

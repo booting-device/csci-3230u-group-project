@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 var bookAPI = express.Router();
 
 
-import data from './books.json' with { type: 'json' };
+import data from './mockData.json' with { type: 'json' };
 
 bookAPI.get('/recommended', (req, res) => {
     res.send(data.slice(0, 3))
@@ -13,6 +13,10 @@ bookAPI.get('/recommended', (req, res) => {
 
 bookAPI.get('/handpicked', (req, res) => {
     res.send(data.slice(3, 6))
+});
+
+bookAPI.get('/similar', (req, res) => {
+    res.send(data.slice(2, 6))
 });
 
 
