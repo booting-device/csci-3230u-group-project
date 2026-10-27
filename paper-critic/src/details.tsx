@@ -3,6 +3,7 @@ import { BookCard, BookGrid } from "./components/book/book";
 import BookActions from "./components/book-actions/book-actions";
 import Review from "./components/review/review";
 import { useEffect, useState } from "react";
+import type { Book } from "./concept/book";
 
 const recommendations = [
   {
@@ -35,16 +36,28 @@ interface DetailProps {
 export default function Details(props: DetailProps) {
   const [libraryData, setlibraryData] = useState<any>(null);
   const [cover, setCover] = useState<string>("");
+  const [coverError, setCoverError] = useState(false);
 
   useEffect(() => {
-    console.log("Fetching cover and other junk")
-    fetch(`https://covers.openlibrary.org/b/isbn/${props.isbn}-L.jpg`).then((response) => {
-      if (!response.ok) throw new Error('Network response failed');
-      return response.blob(); 
-    }).then((blob) => {
-      setCover(URL.createObjectURL(blob));
-    })
+    const controller = new AbortController();
 
+    async function fetchBookCover() {
+      try {
+        const response = await fetch(`/api/isbn/${encodeURIComponent(props.isbn)}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error("Unable to load book from the backend.");
+        const book = (await response.json()) as Book;
+        setCover(book.cover);
+        setCoverError(false);
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") return;
+        console.error("Failed to load book cover:", error);
+        setCoverError(true);
+      }
+    }
+
+    void fetchBookCover();
     fetch(`https://openlibrary.org/search.json?isbn=${props.isbn}`).then((response) => {
       if (!response.ok) throw new Error('Network response failed');
       return response.json(); 
@@ -52,14 +65,10 @@ export default function Details(props: DetailProps) {
       setlibraryData(jsonData.docs[0])
     })
 
-
-
     return () => {
-      if (cover) {
-        URL.revokeObjectURL(cover);
-      }
-    }; 
-  }, []);
+      controller.abort();
+    };
+  }, [props.isbn]);
 
   
   let title:string|null = libraryData && libraryData.title;
@@ -72,11 +81,15 @@ export default function Details(props: DetailProps) {
         <div className={styles["upper-section"]}>
           <section id="book-info" className={styles["book-section"]} aria-labelledby="book-title">
             <article className={styles["featured-book"]}>
-              <img
-                className={styles["featured-cover"]}
-                src={cover}
-                alt= {`Cover of ${title}`}
-              />
+              {coverError ? (
+                <p role="alert">Book cover unavailable.</p>
+              ) : (
+                <img
+                  className={styles["featured-cover"]}
+                  src={cover}
+                  alt={`Cover of ${title}`}
+                />
+              )}
               <div className={styles["featured-copy"]}>
                 <h1 id="book-title">{title}</h1>
                 <p className={styles.author}>By {author_string}</p>
