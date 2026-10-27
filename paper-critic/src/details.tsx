@@ -3,29 +3,7 @@ import { BookCard, BookGrid } from "./components/book/book";
 import BookActions from "./components/book-actions/book-actions";
 import Review from "./components/review/review";
 import { useEffect, useState } from "react";
-
-const recommendations = [
-  {
-    title: "The Diary of a Wimpy Kid",
-    author: "Jeff Kinney",
-    cover: "https://covers.openlibrary.org/b/isbn/9781419741852-L.jpg",
-  },
-  {
-    title: "The Hunger Games",
-    author: "Suzanne Collins",
-    cover: "https://covers.openlibrary.org/b/isbn/9780439023481-L.jpg",
-  },
-  {
-    title: "A Court of Thorns and Roses",
-    author: "Sarah J. Maas",
-    cover: "https://covers.openlibrary.org/b/isbn/9781635575569-L.jpg",
-  },
-  {
-    title: "It Ends with Us",
-    author: "Colleen Hoover",
-    cover: "https://covers.openlibrary.org/b/isbn/9781982143657-L.jpg",
-  },
-];
+import { Book } from "./concept/book";
 
 // 1. Define the props interface
 interface DetailProps {
@@ -33,94 +11,141 @@ interface DetailProps {
 }
 
 export default function Details(props: DetailProps) {
-  const [libraryData, setlibraryData] = useState<any>(null);
-  const [cover, setCover] = useState<string>("");
+  const [bookData, setBookData] = useState<Book | Error | null>(null);
+  const [recommendations, setRecommendations] = useState<Book[] | Error | null>([]);
 
   useEffect(() => {
-    console.log("Fetching cover and other junk")
-    fetch(`https://covers.openlibrary.org/b/isbn/${props.isbn}-L.jpg`).then((response) => {
-      if (!response.ok) throw new Error('Network response failed');
-      return response.blob(); 
-    }).then((blob) => {
-      setCover(URL.createObjectURL(blob));
-    })
+    const controller = new AbortController();
 
-    fetch(`https://openlibrary.org/search.json?isbn=${props.isbn}`).then((response) => {
-      if (!response.ok) throw new Error('Network response failed');
-      return response.json(); 
-    }).then((jsonData) => {
-      setlibraryData(jsonData.docs[0])
-    })
+    (async () => {
+      try {
+        const response = await fetch(`/api/isbn/${encodeURIComponent(props.isbn)}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          throw new Error(response.status === 404 ? "Book not found." : "Unable to load book.");
+        }
 
-
-
-    return () => {
-      if (cover) {
-        URL.revokeObjectURL(cover);
+        const data: unknown = await response.json();
+        setBookData(Book.fromJSON(data));
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        setBookData(error instanceof Error ? error : new Error("Unable to load book."));
       }
-    }; 
+    })();
+
+    return () => controller.abort();
+  }, [props.isbn]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function fetchRecommendations() {
+      try {
+        const response = await fetch("/api/similar", { signal: controller.signal });
+        if (!response.ok) {
+          throw new Error("Unable to load recommendations.");
+        }
+
+        const data: unknown = await response.json();
+        if (!Array.isArray(data)) {
+          throw new TypeError("Recommendation response must be an array.");
+        }
+
+        setRecommendations(data.map((book) => Book.fromJSON(book)));
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        setRecommendations(
+          error instanceof Error ? error : new Error("Unable to load book.")
+        );
+      }
+    }
+
+    void fetchRecommendations();
+    return () => controller.abort();
   }, []);
 
-  
-  let title:string|null = libraryData && libraryData.title;
-  let authors:string[]|null = libraryData && libraryData.author_name
-  let author_string:string|null = authors && (authors.length == 1? authors[0] : `${authors.slice(0, -1).join(", ")}, and ${authors.at(-1)}`);
-  
+  if (bookData === null) {
+    return <p>Loading book...</p>;
+  }
+
+  if (bookData instanceof Error) {
+    return <p role="alert">{bookData.message}</p>;
+  }
 
   return (
-      libraryData && title && <div className={styles["page-content"]}>
-        <div className={styles["upper-section"]}>
-          <section id="book-info" className={styles["book-section"]} aria-labelledby="book-title">
-            <article className={styles["featured-book"]}>
+    <div className={styles["page-content"]}>
+      <div className={styles["upper-section"]}>
+        <section id="book-info" className={styles["book-section"]} aria-labelledby="book-title">
+          <article className={styles["featured-book"]}>
+            {bookData.cover ? (
               <img
                 className={styles["featured-cover"]}
-                src={cover}
-                alt= {`Cover of ${title}`}
+                src={bookData.cover}
+                alt={`Cover of ${bookData.title}`}
               />
-              <div className={styles["featured-copy"]}>
-                <h1 id="book-title">{title}</h1>
-                <p className={styles.author}>By {author_string}</p>
-                <p className={styles.description}>
-                  No description yet.
-                </p>
-              </div>
-            </article>
+            ) : (
+              <p>No cover available.</p>
+            )}
 
-            <div id="favorites">
-              <BookActions />
+            <div className={styles["featured-copy"]}>
+              <h1 id="book-title">{bookData.title}</h1>
+              <p className={styles.author}>By {bookData.author || "Unknown author"}</p>
+              <p className={styles.description}>
+                {bookData.description || "No description available."}
+              </p>
+              <p>
+                <strong>Genres: </strong>
+                {bookData.genres.length > 0
+                  ? bookData.genres.join(", ")
+                  : "No genres available."}
+              </p>
+              <p>
+                <strong>First published: </strong>
+                {bookData.publicationYear || "Publication year unavailable."}
+              </p>
             </div>
-          </section>
+          </article>
+          <div id="favorites">
+            <BookActions />
+          </div>
+        </section>
 
-          <section
-            id="more-like-this"
-            className={styles["recommendations-section"]}
-            aria-labelledby="recommendations-heading"
-          >
-            <h2 id="recommendations-heading">More like this</h2>
+        <section
+          id="more-like-this"
+          className={styles["recommendations-section"]}
+          aria-labelledby="recommendations-heading"
+        >
+          <h2 id="recommendations-heading">More like this</h2>
+          {recommendations instanceof Error? (
+            <p role="alert">{recommendations.message}</p>
+          ) : (
+            recommendations == null? <></> : 
             <BookGrid className={styles["recommendations-grid"]}>
               {recommendations.map((book) => (
                 <BookCard
-                  key={book.title}
+                  key={book.isbn}
                   title={book.title}
                   author={book.author}
                   cover={book.cover}
                 />
               ))}
             </BookGrid>
-          </section>
-        </div>
-
-        <section id="reviews" className={styles["reviews-section"]} aria-labelledby="reviews-heading">
-          <h2 id="reviews-heading">Reader reviews</h2>
-          <div className={styles.reviews}>
-            <Review name="Mr. Smart" rating={5}>
-              <p>A clever, funny adventure with a memorable cast of characters. A delight to read together.</p>
-            </Review>
-            <Review name="Mr. Evil" rating={1}>
-              <p>This book SUCKS!</p>
-            </Review>
-          </div>
+          )}
         </section>
       </div>
+
+      <section id="reviews" className={styles["reviews-section"]} aria-labelledby="reviews-heading">
+        <h2 id="reviews-heading">Reader reviews</h2>
+        <div className={styles.reviews}>
+          <Review name="Mr. Smart" rating={5}>
+            <p>A clever, funny adventure with a memorable cast of characters. A delight to read together.</p>
+          </Review>
+          <Review name="Mr. Evil" rating={1}>
+            <p>This book SUCKS!</p>
+          </Review>
+        </div>
+      </section>
+    </div>
   );
 }
