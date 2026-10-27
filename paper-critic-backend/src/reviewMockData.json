@@ -1,0 +1,53 @@
+{
+    "9780140328721": [
+        {
+            "rating": 1,
+            "name": "Mr. Evil",
+            "content": "This book SUCKS!"
+        },
+        {
+            "rating": 5,
+            "name": "Mr. Evil",
+            "content": "A clever, funny adventure with a memorable cast of characters. A delight to read together."
+        }
+    ],
+
+    "9781982143657": [
+        {
+            "rating": 5,
+            "name": "Abigail",
+            "content": "My reading group loved this book."
+        },
+        
+        {
+            "rating": 4,
+            "name": "Dave",
+            "content": "I like this book."
+        }
+    ],
+
+    "9781635575569": [
+        {
+            "rating": 3,
+            "name": "Mr. Ambigous Morality",
+            "content": "This book is kind of mid."
+        }
+    ],
+
+    "9781419741852": [
+        {
+            "rating": 4,
+            "name": "Kevin",
+            "content": "I like this book, but greg should nicer to rowley. :("
+        }
+    ],
+
+
+    "9780451524935": [
+        {
+            "rating": 5,
+            "name": "Stalin",
+            "content": "This book is lowkey my inspiration."
+        }
+    ]
+}

@@ -140,7 +140,7 @@ export default function Details(props: DetailProps) {
       <section id="reviews" className={styles["reviews-section"]} aria-labelledby="reviews-heading">
         <h2 id="reviews-heading">Reader reviews</h2>
         <div className={styles.reviews}>
-          <ReviewSection />
+          <ReviewSection isbn={props.isbn} />
         </div>
       </section>
     </div>
