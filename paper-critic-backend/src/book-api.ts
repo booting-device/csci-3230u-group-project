@@ -6,6 +6,9 @@ var bookAPI = express.Router();
 
 
 import data from './mockData.json' with { type: 'json' };
+import reviewData from './reviewMockData.json' with { type: 'json' };
+
+const reviewsByIsbn: Record<string, { rating: number; name: string; content: string }[]> = reviewData;
 
 bookAPI.get('/recommended', (req, res) => {
     res.send(data.slice(0, 3))
@@ -17,6 +20,21 @@ bookAPI.get('/handpicked', (req, res) => {
 
 bookAPI.get('/similar', (req, res) => {
     res.send(data.slice(2, 6))
+});
+
+bookAPI.get('/reviews/:isbn', (req, res) => {
+    const book = data.find((book) => book.isbn === req.params.isbn);
+    if (!book) {
+        res.status(404).json({ error: 'Book not found' });
+        return;
+    }
+
+    const reviews = reviewsByIsbn[req.params.isbn] ?? [];
+    res.json(reviews.map(({ rating, name, content }) => ({
+        rating,
+        author: name,
+        content,
+    })));
 });
 
 
