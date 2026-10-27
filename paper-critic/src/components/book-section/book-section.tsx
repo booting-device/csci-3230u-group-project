@@ -1,12 +1,7 @@
 import { navigateTo } from "../../navigation";
+import type { Book } from "../../concept/book";
 import styles from "./book-section.module.css";
 
-type Book = {
-  author: string;
-  cover: string;
-  title: string;
-  isbn: string;
-};
 
 export default function BookSection({
   id,

@@ -1,0 +1,58 @@
+[
+{
+    "isbn": "9780140328721",
+    "title": "Fantastic Mr Fox",
+    "author": "Roald Dahl",
+    "cover": "/api/covers/9780140328721-L.jpg",
+    "description":
+      "Mr. Fox is an extremely clever anthropomorphized fox. In order to feed his family, he steals food from the cruel, brutish farmers named Boggis, Bunce, and Bean every night.",
+    "genres": ["Children's fiction", "Fantasy fiction"],
+    "publicationYear": 1970
+  },
+  {
+    "isbn": "9780439023481",
+    "title": "The Hunger Games",
+    "author": "Suzanne Collins",
+    "cover": "/api/covers/9780439023481-L.jpg",
+    "description":
+      "16-year-old Katniss Everdeen, who lives far in the future of North America. The Capitol exercises political control over the rest of the nation by creating The Hunger Games. An annual battle royale to the death.",
+    "genres": ["Science fiction", "Dystopian fiction"],
+    "publicationYear": 2008
+  },
+  {
+    "isbn": "9781982143657",
+    "title": "It Ends with Us",
+    "author": "Colleen Hoover",
+    "cover": "/api/covers/0012916666-L.jpg",
+    "description": "Lily Bloom moves to Boston and starts building the life she wants. When she meets neurosurgeon Ryle Kincaid, a new relationship begins. However, the return of her first love, Atlas Corrigan, and troubling patterns in her relationship force Lily to make difficult decisions about love, family, and her future.",
+    "genres": ["Romance", "Contemporary fiction"],
+    "publicationYear": 2016
+  },
+  {
+    "isbn": "9781635575569",
+    "title": "A Court of Thorns and Roses",
+    "author": "Sarah J. Maas",
+    "cover": "/api/covers/9781635575569-L.jpg",
+    "description": "Feyre is a young huntress struggling to support her family. After she kills a wolf in the woods, a powerful faerie takes her to the magical land of Prythian. As she learns more about her captor and his world, she discovers a dangerous threat that could destroy everything she has come to care about.",
+    "genres": ["Fantasy", "Romance"],
+    "publicationYear": 2015
+  },
+  {
+    "isbn": "9781419741852",
+    "title": "Diary of a Wimpy Kid",
+    "author": "Jeff Kinney",
+    "cover": "/api/covers/0014376135-L.jpg",
+    "description": "Greg Heffley records his experiences of middle school through journal entries and cartoons. Alongside his best friend Rowley Jefferson, he faces friendship problems, embarrassing situations, and attempts to become popular. Greg's plans rarely go as expected, making everyday school life a series of funny adventures.",
+    "genres": ["Children's fiction", "Humor"],
+    "publicationYear": 2007
+  },
+  {
+    "isbn": "9780451524935",
+    "title": "Nineteen Eighty-Four",
+    "author": "George Orwell",
+    "cover": "/api/covers/0008579180-L.jpg",
+    "description": "Winston Smith lives in a society where the Party controls information, rewrites history, and watches its citizens through constant surveillance. While working at the Ministry of Truth, Winston secretly begins questioning the government. His search for freedom and his relationship with Julia place him in danger under the rule of Big Brother.",
+    "genres": ["Dystopian fiction", "Political fiction", "Science fiction"],
+    "publicationYear": 1949
+  }
+]
