@@ -2,53 +2,57 @@ import styles from "./profile.module.css";
 import { useState, useEffect } from "react";
 import { BookCard, BookGrid } from "./components/book/book";
 import { navigateTo } from "./navigation";
+import { Book } from "./concept/book";
 
 interface ProfileProps {
   favorites: string[];
 }
 
-interface Book {
-  isbn: string;
-  title: string;
-  author: string;
-  cover: string;
-}
-
 function Profile({favorites}: ProfileProps) {
   const [activeFilter, setActiveFilter] = useState("all");
   const [books, setBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const visibleBooks = activeFilter === "all" || activeFilter === "favorites" ? books : [];
 
   useEffect(() => {
-  async function fetchBooks() {
-    const results = await Promise.all(
-      favorites.map(async (isbn) => {
-        const response = await fetch(
-          `https://openlibrary.org/search.json?isbn=${isbn}`
+    const controller = new AbortController();
+
+    async function fetchBooks() {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const results = await Promise.all(
+          favorites.map(async (isbn) => {
+            const response = await fetch(
+              `/api/isbn/${encodeURIComponent(isbn)}`,
+              { signal: controller.signal }
+            );
+            if (!response.ok) {
+              throw new Error(
+                response.status === 404
+                  ? `Book with ISBN ${isbn} was not found.`
+                  : "Unable to load books."
+              );
+            }
+
+            const data: unknown = await response.json();
+            return Book.fromJSON(data);
+          })
         );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch book");
+        setBooks(results);
+      } catch (loadError) {
+        if (controller.signal.aborted) return;
+        setError(loadError instanceof Error ? loadError.message : "Unable to load books.");
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
         }
+      }
+    }
 
-        const data = await response.json();
-        const book = data.docs[0];
-
-        if (!book) return null;
-
-        return {
-          isbn: isbn,
-          title: book.title,
-          author: book.author_name?.[0] || "Unknown Author",
-          cover: `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`
-        };
-      })
-    );
-
-    setBooks(results.filter((book): book is Book => book !== null));
-  }
-
-  fetchBooks().catch((error) => console.error(error));
+    void fetchBooks();
+    return () => controller.abort();
   }, [favorites]);
 
 
@@ -69,10 +73,12 @@ function Profile({favorites}: ProfileProps) {
       </div>
 
       <div className={styles["bookshelf-grid"]}>
-        {visibleBooks.length === 0 && (<p>Nothing here yet!</p>)}
+        {isLoading && <p>Loading books...</p>}
+        {error && <p role="alert">{error}</p>}
+        {!isLoading && !error && visibleBooks.length === 0 && <p>Nothing here yet!</p>}
 
         <BookGrid>
-          {visibleBooks.map((book) => (
+          {!isLoading && !error && visibleBooks.map((book) => (
             <a
               key={book.isbn}
               href={`/details/${book.isbn}`}
@@ -81,11 +87,7 @@ function Profile({favorites}: ProfileProps) {
                 navigateTo(`/details/${book.isbn}`);
               }}
             >
-              <BookCard
-                  title={book.title}
-                  author={book.author}
-                  cover={book.cover}
-              />
+              <BookCard book={book}/>
             </a>
           ))}
         </BookGrid>

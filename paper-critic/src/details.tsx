@@ -125,12 +125,7 @@ export default function Details(props: DetailProps) {
             recommendations == null? <></> : 
             <BookGrid className={styles["recommendations-grid"]}>
               {recommendations.map((book) => (
-                <BookCard
-                  key={book.isbn}
-                  title={book.title}
-                  author={book.author}
-                  cover={book.cover}
-                />
+                <BookCard book={book}/>
               ))}
             </BookGrid>
           )}

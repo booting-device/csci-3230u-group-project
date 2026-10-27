@@ -1,19 +1,25 @@
 
 
+import type { Book } from "../../concept/book";
+import { navigateTo } from "../../navigation";
 import style from "./book.module.css"
 
 
 
-export function BookCard({ title, cover, author }: { title: string; cover: string; author: string }) {
+export function BookCard({ book }: { book: Book }) {
   return (
     <article className={style["book-card"]}>
-        <a className={style["cover-link"]}>
-        <img className={style["book-cover"]} src={cover} alt={"Cover of " + title}/>
+        <a className={style["cover-link"]} onClick={(e) =>
+        {
+            e.preventDefault();
+            navigateTo(`/details/${book.isbn}`);
+        }}>
+        <img className={style["book-cover"]} src={book.cover} alt={"Cover of " + book.title}/>
         </a>
         <div className={style["book-info"]}>
         <div>
-          <h3>{title}</h3>
-          <p>{author}</p>
+          <h3>{book.title}</h3>
+          <p>{book.author}</p>
         </div>
         </div>
     </article>
