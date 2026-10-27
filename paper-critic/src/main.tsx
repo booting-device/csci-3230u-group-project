@@ -2,9 +2,19 @@
 import { useEffect, useState } from 'react'
 import Details from './details.tsx'
 import Discovery from './discovery.tsx'
+import Profile from './profile.tsx'
 
 export default function MainContent() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const [favorites, setFavorites] = useState<string[]>(() => {const saved = localStorage.getItem("favorites"); return saved ? JSON.parse(saved) : [];});
+
+  function toggleFavorite(isbn: string) {
+  setFavorites((previousFavorites) => previousFavorites.includes(isbn) ? previousFavorites.filter((id) => id !== isbn) : [...previousFavorites, isbn]);
+  }
+
+  useEffect(() => {
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname)
@@ -31,7 +41,11 @@ export default function MainContent() {
   switch (path_split.shift()) {
     case "details":
       let book_isbn = path_split.shift()
-      if (book_isbn != undefined) node = <Details isbn={book_isbn}></Details>
+      if (book_isbn != undefined) node = <Details isbn={book_isbn} favorites={favorites} toggleFavorite={toggleFavorite} />
+      break;
+
+    case "profile": 
+      node = <Profile favorites={favorites}/>
       break;
 
     default: node = NOT_FOUND
@@ -49,6 +63,7 @@ import './main.css'
 
 import Sidebar from './components/side-bar/side-bar.tsx'
 import TopBar from './components/top-bar/top-bar.tsx'
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Sidebar />

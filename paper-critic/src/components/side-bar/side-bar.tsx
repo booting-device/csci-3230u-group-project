@@ -11,7 +11,7 @@ export default function Sidebar({active = 0}) {
 
         <nav className={style["side-nav"]}>
           <a className={`${style["nav-link"]} ${active==1? style["is-active"] : ""}`} onClick={()=>navigateTo("/")} href="#top">Discover</a>
-          <a className={`${style["nav-link"]} ${active==2? style["is-active"] : ""}`} onClick={()=>navigateTo("/")} href="#favorites">Favorites</a>
+          <a className={`${style["nav-link"]} ${active==3? style["is-active"] : ""}`} onClick={(e)=>{ e.preventDefault(); navigateTo("/profile");}} href="#Profile">Profile</a>
         </nav>
       </aside>
   );
