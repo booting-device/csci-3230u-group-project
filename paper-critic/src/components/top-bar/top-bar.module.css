@@ -1,0 +1,32 @@
+
+.topbar {
+  display: flex;
+  height: 79px;
+  align-items: center;
+  gap: 18px;
+  padding: 0 clamp(28px, 6vw, 82px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(251, 251, 248, 0.88);
+}
+
+.search {
+  display: flex;
+  width: min(100%, 890px);
+  height: 43px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 13px;
+  border: 1px solid #e5e7df;
+  border-radius: 5px;
+  background: white;
+
+  input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ink);
+    font-size: 12px;
+  }
+}
