@@ -1,7 +1,7 @@
 import styles from "./details.module.css";
 import { BookCard, BookGrid } from "./components/book/book";
 import BookActions from "./components/book-actions/book-actions";
-import Review from "./components/review/review";
+import ReviewSection from "./components/review-section/review-section";
 import { useEffect, useState } from "react";
 import { Book } from "./concept/book";
 
@@ -140,12 +140,7 @@ export default function Details(props: DetailProps) {
       <section id="reviews" className={styles["reviews-section"]} aria-labelledby="reviews-heading">
         <h2 id="reviews-heading">Reader reviews</h2>
         <div className={styles.reviews}>
-          <Review name="Mr. Smart" rating={5}>
-            <p>A clever, funny adventure with a memorable cast of characters. A delight to read together.</p>
-          </Review>
-          <Review name="Mr. Evil" rating={1}>
-            <p>This book SUCKS!</p>
-          </Review>
+          <ReviewSection />
         </div>
       </section>
     </div>
